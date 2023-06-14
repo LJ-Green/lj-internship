@@ -14,7 +14,9 @@ const HotCollections = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections");
+        const response = await axios.get(
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
+        );
         setCollections(response.data);
         setLoading(false);
       } catch (error) {
@@ -22,11 +24,13 @@ const HotCollections = () => {
       }
     };
 
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 1000);
+    window.onload = () => {
+      const timer = setTimeout(() => {
+        fetchData();
+      }, 1000);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    };
   }, []);
 
   const breakpoints = {
@@ -98,9 +102,6 @@ const HotCollections = () => {
                 breakpoints={breakpoints}
                 loop
                 spaceBetween={20}
-                pagination={{
-                  clickable: true
-                }}
                 style={{
                   "--swiper-navigation-size": "15px"
                 }}

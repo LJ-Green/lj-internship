@@ -1,8 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
+import axios from "axios";
+import "./styles.css";
 
 const TopSellers = () => {
+  const [topSellers, setTopSellers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    fetchTopSellers();
+  }, []);
+
+  const fetchTopSellers = async () => {
+    try {
+      setTimeout(async () => {
+        const response = await axios.get(
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers"
+        );
+        setTopSellers(response.data);
+        setIsLoading(false);
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
+
+  const renderSkeletonLoading = () => {
+    return [...Array(12)].map((_, index) => (
+      <li key={index}>
+        <div className="author_list_pp skeleton-loading">
+          <div className="skeleton-loading-image"></div>
+        </div>
+        <div className="author_list_info skeleton-loading">
+          <div className="skeleton-loading-text"></div>
+          <div className="skeleton-loading-text"></div>
+        </div>
+      </li>
+    ));
+  };
+
   return (
     <section id="section-popular" className="pb-5">
       <div className="container">
@@ -14,26 +52,36 @@ const TopSellers = () => {
             </div>
           </div>
           <div className="col-md-12">
-            <ol className="author_list">
-              {new Array(12).fill(0).map((_, index) => (
-                <li key={index}>
-                  <div className="author_list_pp">
-                    <Link to="/author">
-                      <img
-                        className="lazy pp-author"
-                        src={AuthorImage}
-                        alt=""
-                      />
-                      <i className="fa fa-check"></i>
-                    </Link>
-                  </div>
-                  <div className="author_list_info">
-                    <Link to="/author">Monica Lucas</Link>
-                    <span>2.1 ETH</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            {isLoading ? (
+              <ol className="author_list">
+                {renderSkeletonLoading()}
+              </ol>
+            ) : (
+              topSellers.length > 0 ? (
+                <ol className="author_list">
+                  {topSellers.map((seller) => (
+                    <li key={seller.authorId}>
+                      <div className="author_list_pp">
+                        <Link to={`/author/${seller.authorId}`}>
+                          <img
+                            className="lazy pp-author"
+                            src={seller.authorImage}
+                            alt=""
+                          />
+                          <i className="fa fa-check"></i>
+                        </Link>
+                      </div>
+                      <div className="author_list_info">
+                        <Link to={`/author/${seller.authorId}`}>{seller.authorName}</Link>
+                        <span>{seller.price} ETH</span>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p>No top sellers available.</p>
+              )
+            )}
           </div>
         </div>
       </div>

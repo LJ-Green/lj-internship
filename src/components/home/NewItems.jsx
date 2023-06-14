@@ -27,9 +27,7 @@ const NewItems = () => {
   
       setItems(response.data);
       setLoading(false);
-      console.log(response.data);
     } catch (error) {
-      console.error(error);
     }
   };
 

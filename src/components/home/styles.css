@@ -82,6 +82,35 @@
   display: none;
 }
 
+/*  Top Sellers  */
+
+.author_list_info {
+ margin-left: 15px;
+}
+
+/*  Top Sellers Skeleton Loading State  */
+
+.skeleton-loading {
+  background-color: #eee;
+  border-radius: 4px;
+}
+
+.skeleton-loading-image {
+  width: 20px;
+  height: 20px;
+}
+
+.skeleton-loading-text {
+  width: 70%;
+  height: 12px;
+  margin-bottom: 8px;
+}
+
+.skeleton-loading-text-long {
+  width: 90%;
+  height: 12px;
+  margin-bottom: 8px;
+}
 
 
 
