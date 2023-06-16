@@ -23,7 +23,30 @@ const ItemDetails = () => {
   }, [itemId]);
 
   if (!item) {
-    return <div>Loading...</div>;
+    return (
+      <div id="wrapper">
+        <div className="no-bottom no-top" id="content">
+          <div id="top"></div>
+          <section aria-label="section" className="mt90 sm-mt-0">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-6 text-center">
+                  <div className="skeleton-item"></div>
+                </div>
+                <div className="col-md-6">
+                  <div className="item_info">
+                    <div className="skeleton-item-details"></div>
+                    <div className="skeleton-item-details"></div>
+                    <div className="skeleton-item-details"></div>
+                    <div className="skeleton-item-details"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    );
   }
 
   return (
