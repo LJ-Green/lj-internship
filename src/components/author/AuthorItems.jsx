@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
 import axios from "axios";
 
 const AuthorItems = () => {
@@ -30,10 +29,6 @@ const AuthorItems = () => {
             <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
               <div className="nft__item">
                 <div className="author_list_pp">
-                  <Link to={`/author/${item.authorId}`}>
-                    <img className="lazy" src={item.authorImage} alt="" />
-                    <i className="fa fa-check"></i>
-                  </Link>
                 </div>
                 <div className="nft__item_wrap">
                   <div className="nft__item_extra">

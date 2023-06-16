@@ -35,17 +35,29 @@ const HotCollections = () => {
 
   const breakpoints = {
     390: {
-      slidesPerView: 1
+      slidesPerView: 1,
     },
     660: {
-      slidesPerView: 2
+      slidesPerView: 2,
     },
     856: {
-      slidesPerView: 3
+      slidesPerView: 3,
     },
     1024: {
-      slidesPerView: 4
-    }
+      slidesPerView: 4,
+    },
+  };
+
+  const renderSkeleton = () => {
+    return (
+      <div className="skeleton-container">
+        <div className="skeleton-row">
+          {[...Array(4)].map((_, index) => (
+            <div className="hc__skeleton-item" key={index}></div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   const collectionItems = collections.map((collection, index) => (
@@ -63,7 +75,11 @@ const HotCollections = () => {
         </div>
         <div className="nft_coll_pp">
           <Link to={`/author/${collection.authorId}`}>
-            <img className="lazy pp-coll" src={collection.authorImage} alt="" />
+            <img
+              className="lazy pp-coll"
+              src={collection.authorImage}
+              alt=""
+            />
           </Link>
           <i className="fa fa-check"></i>
         </div>
@@ -88,29 +104,23 @@ const HotCollections = () => {
             </div>
           </div>
           {loading && !collections.length ? (
-            <div className="skeleton-container">
-              {[...Array(4)].map((_, index) => (
-                <div className="skeleton-item" key={index}></div>
-              ))}
-            </div>
+            <div className="skeleton-container">{renderSkeleton()}</div>
+          ) : collections.length > 0 ? (
+            <Swiper
+              navigation
+              modules={[Navigation]}
+              className="mySwiper"
+              breakpoints={breakpoints}
+              loop
+              spaceBetween={20}
+              style={{
+                "--swiper-navigation-size": "15px",
+              }}
+            >
+              {collectionItems}
+            </Swiper>
           ) : (
-            collections.length > 0 ? (
-              <Swiper
-                navigation
-                modules={[Navigation]}
-                className="mySwiper"
-                breakpoints={breakpoints}
-                loop
-                spaceBetween={20}
-                style={{
-                  "--swiper-navigation-size": "15px"
-                }}
-              >
-                {collectionItems}
-              </Swiper>
-            ) : (
-              <div>No collections available</div>
-            )
+            <div>No collections available</div>
           )}
         </div>
       </div>

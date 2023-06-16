@@ -1,0 +1,34 @@
+.profile-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-avatar-skeleton {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 1000px;
+  background-color: #ddd;
+}
+
+.profile-name-skeleton {
+  width: 10rem;
+  height: 2rem;
+  margin-left: 30px;
+  background-color: #e7e7e7;
+}
+
+/* Author items section */
+.author-items-skeleton {
+  display: grid;
+  grid-template-columns: repeat(4, 2fr);
+  grid-gap: 1rem;
+}
+
+.author-item-skeleton {
+  width: 100%;
+  height: 300px;
+  background-color: #eeeeee;
+}
+
